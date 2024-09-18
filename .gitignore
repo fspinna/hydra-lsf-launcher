@@ -1,8 +1,3 @@
-hydra_plugins_bkp_and_tests/
-conda/
-scripts/
-
-
 ### macOS ###
 # General
 .DS_Store
