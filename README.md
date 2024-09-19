@@ -50,7 +50,7 @@ To limit the number of concurrent jobs, as for now job arrays are not supported,
 
 ```bash
 bgadd /myJobGroup
-bgmod -L 32 /myJobGroup  # limit to 32 concurrent jobs
+bgmod -L 4 /myJobGroup  # limit to 4 concurrent jobs
 ```
 
 
@@ -72,3 +72,10 @@ To delete a job group:
 bgdel /myJobGroup
 ```
 
+
+## More complex examples
+Run 5 jobs (4 parallel), each with 2GB of memory, and 4 cores from 2 different nodes.
+
+```bash
+python myscript.py hydra/launcher=lsf hydra.launcher.verbose=False hydra.launcher.n=4 'hydra.launcher.bsub_args= -g /myJobGroup -R span\[ptile\=2\]' hydra.launcher.M="2GB" sentence="Hello World!,Hello World!,Hello World!,Hello World!,Hello World!" -m
+```
