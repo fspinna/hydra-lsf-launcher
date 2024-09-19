@@ -25,10 +25,10 @@ log = logging.getLogger(__name__)
 @dataclass
 class LsfLauncherConfig:
     _target_: str = "hydra_plugins.hydra_lsf_launcher.lsf_launcher.LsfLauncher"
-    n: int = 1  # Number of CPU cores
+    n: int = 1  # Number of CPU cores per job
     # R: str = "rusage[mem=1024]"  # Resource requirement string
     M: str = "2GB"  # Memory requirement
-    W: str = "60:00"  # Walltime
+    W: str = "00:60"  # Walltime HH:MM
     q: str = "ext_batch"  # Queue name
     verbose: bool = True
     bsub_args: Optional[str] = None  # Additional bsub options
