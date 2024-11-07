@@ -74,10 +74,6 @@ class LsfLauncher(Launcher):
         self, job_overrides: Sequence[Sequence[str]], initial_job_idx: int
     ) -> List[JobReturn]:
         sweep_dir = Path(self.config.hydra.sweep.dir)
-
-        if self.verbose > 1:
-            log.info(f"sweep_dir: {sweep_dir}")
-
         sweep_dir.mkdir(parents=True, exist_ok=True)
 
         log.info(
@@ -105,27 +101,21 @@ class LsfLauncher(Launcher):
             # Determine the output directory
             output_dir = self._get_job_output_dir(sweep_config)
 
-            if self.verbose > 1:
-                log.info(f"output_dir: {output_dir}")
-
-            if self.verbose > 1:
-                print(f"runtime_output_dir: {sweep_config.hydra.runtime.output_dir}")
-
             # Update hydra.runtime.output_dir
-            # with read_write(sweep_config.hydra.runtime):
-            #     sweep_config.hydra.runtime.output_dir = os.path.abspath(output_dir)
+            with read_write(sweep_config.hydra.runtime):
+                sweep_config.hydra.runtime.output_dir = os.path.abspath(output_dir)
 
             # Update HydraConfig with the job's configuration
             HydraConfig.instance().set_config(sweep_config)
 
             # Create the output directory
-            # Path(output_dir).mkdir(parents=True, exist_ok=True)
+            Path(output_dir).mkdir(parents=True, exist_ok=True)
 
             # Handle working directory
             chdir = sweep_config.hydra.job.get("chdir", True)
 
             # Save configuration files in the job directory
-            # self._save_configurations(sweep_config, output_dir)
+            self._save_configurations(sweep_config, output_dir)
 
             # Build the command to run the task
             cmd = [
@@ -209,9 +199,6 @@ class LsfLauncher(Launcher):
         # Save the configuration files using Hydra's save_config
         hydra_output = Path(output_dir) / ".hydra"
         hydra_output.mkdir(parents=True, exist_ok=True)
-
-        if self.verbose > 1:
-            log.info(f"hydra_output: {hydra_output}")
 
         _save_config(task_cfg, "config.yaml", hydra_output)
         _save_config(config.hydra, "hydra.yaml", hydra_output)
