@@ -112,8 +112,8 @@ class LsfLauncher(Launcher):
                 print(f"runtime_output_dir: {sweep_config.hydra.runtime.output_dir}")
 
             # Update hydra.runtime.output_dir
-            with read_write(sweep_config.hydra.runtime):
-                sweep_config.hydra.runtime.output_dir = os.path.abspath(output_dir)
+            # with read_write(sweep_config.hydra.runtime):
+            #     sweep_config.hydra.runtime.output_dir = os.path.abspath(output_dir)
 
             # Update HydraConfig with the job's configuration
             HydraConfig.instance().set_config(sweep_config)
