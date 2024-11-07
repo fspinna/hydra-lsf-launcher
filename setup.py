@@ -3,7 +3,7 @@ from setuptools import find_namespace_packages, setup
 with open("README.md") as fh:
     LONG_DESC = fh.read()
     setup(
-        version="0.1.0",
+        version="0.1.1",
         name="hydra-lsf-launcher",
         author="Francesco Spinnato",
         author_email="francesco.spinnato@di.unipi.it",
