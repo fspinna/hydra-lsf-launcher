@@ -174,7 +174,10 @@ class LsfLauncher(Launcher):
                 working_dir=output_dir,
                 task_name=JobRuntime.instance().get("name"),
                 status=JobStatus.COMPLETED if job_id else JobStatus.FAILED,
-                _return_value=None,
+                _return_value=0,
+                # FIXME: _return_value should be None but this allows for using sweepers which require a return value
+                #  from the task function. Eventually, we should find a way to wait for the real value (serially),
+                #  or better, make the whole process async.
             )
             runs.append(ret)
 
