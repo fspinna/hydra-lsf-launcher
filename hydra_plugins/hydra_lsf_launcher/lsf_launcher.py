@@ -121,7 +121,7 @@ class LsfLauncher(Launcher):
             cmd = [
                 sys.executable,
                 self.script_name,
-            ] + list(overrides)
+            ] + list(overrides) + [f"hydra.run.dir={output_dir}"]
 
             # If chdir is True, adjust the command to change directory
             if chdir:
