@@ -125,7 +125,7 @@ class LsfLauncher(Launcher):
             chdir = sweep_config.hydra.job.get("chdir", True)
 
             # Save configuration files in the job directory
-            self._save_configurations(sweep_config, output_dir)
+            # self._save_configurations(sweep_config, output_dir)
 
             # Build the command to run the task
             cmd = [
