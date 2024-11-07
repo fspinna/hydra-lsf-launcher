@@ -109,7 +109,7 @@ class LsfLauncher(Launcher):
             HydraConfig.instance().set_config(sweep_config)
 
             # Create the output directory
-            Path(output_dir).mkdir(parents=True, exist_ok=True)
+            # Path(output_dir).mkdir(parents=True, exist_ok=True)
 
             # Handle working directory
             chdir = sweep_config.hydra.job.get("chdir", True)
