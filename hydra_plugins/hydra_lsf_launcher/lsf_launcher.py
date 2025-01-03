@@ -48,7 +48,7 @@ class LsfLauncher(Launcher):
         # R: str = "rusage[mem=1024]",
         M: str = "2GB",
         W: str = "60:00",
-        P: str = None
+        P: str = None,
         verbose=True,
         bsub_args: Optional[str] = None,
     ) -> None:
