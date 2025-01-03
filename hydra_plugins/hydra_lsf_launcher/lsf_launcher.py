@@ -149,7 +149,8 @@ class LsfLauncher(Launcher):
                 f"{output_dir}/job_{idx}.err",
             ]
             if self.P:
-                bsub_cmd.append(self.P)
+                bsub_cmd.extend(["-P",
+                    self.P])
 
             # Add any additional bsub options
             if self.bsub_args:
