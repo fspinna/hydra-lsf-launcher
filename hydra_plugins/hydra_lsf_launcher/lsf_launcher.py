@@ -48,7 +48,7 @@ class LsfLauncher(Launcher):
         # R: str = "rusage[mem=1024]",
         M: str = "2GB",
         W: str = "60:00",
-        P: str = None,
+        P: Optional[str] = None,
         verbose=True,
         bsub_args: Optional[str] = None,
     ) -> None:
@@ -148,6 +148,7 @@ class LsfLauncher(Launcher):
                 "-e",
                 f"{output_dir}/job_{idx}.err",
             ]
+            
             if self.P:
                 bsub_cmd.extend(["-P",
                     self.P])
