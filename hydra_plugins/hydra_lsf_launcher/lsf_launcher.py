@@ -30,6 +30,7 @@ class LsfLauncherConfig:
     M: str = "2GB"  # Memory requirement
     W: str = "00:60"  # Walltime HH:MM
     q: str = "ext_batch"  # Queue name
+    P: str = "partition" # Partition name
     verbose: bool = True
     bsub_args: Optional[str] = None  # Additional bsub options
 
@@ -47,6 +48,7 @@ class LsfLauncher(Launcher):
         # R: str = "rusage[mem=1024]",
         M: str = "2GB",
         W: str = "60:00",
+        P: Optional[str] = None,
         verbose=True,
         bsub_args: Optional[str] = None,
     ) -> None:
@@ -55,6 +57,7 @@ class LsfLauncher(Launcher):
         self.q = q
         self.M = M
         self.W = W
+        self.P = P
         self.verbose = verbose
         self.bsub_args = bsub_args
 
@@ -145,6 +148,10 @@ class LsfLauncher(Launcher):
                 "-e",
                 f"{output_dir}/job_{idx}.err",
             ]
+            
+            if self.P:
+                bsub_cmd.extend(["-P",
+                    self.P])
 
             # Add any additional bsub options
             if self.bsub_args:
